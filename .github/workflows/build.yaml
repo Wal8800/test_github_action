@@ -1,0 +1,34 @@
+name: Go package
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - goos: linux
+            goarch: amd64
+          - goos: linux
+            goarch: arm64
+          - goos: linux
+            goarch: arm
+            goarm: 7
+          - goos: linux
+            goarch: arm
+            goarm: 6
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: ~1.19.10
+
+      - name: Build
+        env:
+          GOOS: ${{matrix.goos}}
+          GOARCH: ${{matrix.goarch}}
+          GOARM: ${{matrix.goarm}}
+        run: go build -v ./...
