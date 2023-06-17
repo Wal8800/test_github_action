@@ -29,8 +29,15 @@ jobs:
           go-version: ~1.19.10
 
       - name: Build
+        if: ${{ matrix.goarm }}
         env:
           GOOS: ${{matrix.goos}}
           GOARCH: ${{matrix.goarch}}
           GOARM: ${{matrix.goarm}}
+        run: go build main.go
+      - name: Build without go arm
+        if: ${{ !matrix.goarm }}
+        env:
+          GOOS: ${{matrix.goos}}
+          GOARCH: ${{matrix.goarch}}
         run: go build main.go
