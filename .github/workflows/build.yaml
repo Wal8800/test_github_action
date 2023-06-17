@@ -13,7 +13,7 @@ jobs:
           - amd64
           - arm64
           - arm
-        goarm:
+        goarm: null
         include:
           - goos: linux
             goarch: arm
