@@ -24,7 +24,9 @@ jobs:
             goarm: 6
     steps:
       - uses: actions/checkout@v3
-
+      - uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64,ppc64le,linux/arm/v7
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
